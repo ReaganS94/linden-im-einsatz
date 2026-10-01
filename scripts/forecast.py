@@ -50,11 +50,15 @@ def main():
         if guess:
             ledger.append({"issued": checked.isoformat(), "target": target.isoformat(), "latest_at_issue": data["latest"], **guess})
     ledger.sort(key=lambda row: row["target"])
-    LEDGER.write_text(json.dumps(ledger, ensure_ascii=False, indent=2), encoding="utf-8")
 
     actual_days = {entry["date"] for entry in entries if not entry["service"] and not entry["duplicate"]}
-    scored = [row for row in ledger if date.fromisoformat(row["target"]) <= checked - timedelta(days=WAIT_DAYS)]
-    score = lambda key: sum((row[key] - int(row["target"] in actual_days)) ** 2 for row in scored) / len(scored) if scored else None
+    for row in ledger:
+        if "observed_at_score" not in row and date.fromisoformat(row["target"]) <= checked - timedelta(days=WAIT_DAYS):
+            row["observed_at_score"] = int(row["target"] in actual_days)
+            row["scored_on"] = checked.isoformat()
+    LEDGER.write_text(json.dumps(ledger, ensure_ascii=False, indent=2), encoding="utf-8")
+    scored = [row for row in ledger if "observed_at_score" in row]
+    score = lambda key: sum((row[key] - row["observed_at_score"]) ** 2 for row in scored) / len(scored) if scored else None
     today_guess = next((row for row in ledger if row["target"] == checked.isoformat()), None)
     public = {
         "checked_on": checked.isoformat(),

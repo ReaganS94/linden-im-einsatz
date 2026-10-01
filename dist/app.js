@@ -207,6 +207,7 @@ async function start() {
     $('#method-counted').textContent = formatNumber(entries.length);
     $('#method-services').textContent = formatNumber(data.entries.filter(entry => entry.service).length);
     $('#method-repeats').textContent = formatNumber(data.entries.filter(entry => entry.duplicate && !entry.service).length);
+    $('#method-bulk-repeats').textContent = formatNumber(data.uncertain_bulk_repeats);
     $('#method-unknown').textContent = formatNumber(entries.filter(entry => !entry.time_known).length);
     renderFreshness(data);
     buildChart(data);

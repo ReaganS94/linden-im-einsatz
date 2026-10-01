@@ -56,6 +56,8 @@ def main():
     checked = datetime.strptime(source["checked_on"], "%Y-%m-%d").date()
     entries = []
     seen = set()
+    seen_bulk_exact = set()
+    uncertain_bulk_repeats = 0
     raw_category = Counter(row[2] for row in raw)
     per_day = Counter(row[0] for row in raw if row[2] == "Einsatz")
     midnight_per_day = Counter(row[0] for row in raw if row[2] == "Einsatz" and row[1] == "00:00")
@@ -71,6 +73,10 @@ def main():
         if day > checked:
             raise SystemExit("Source has a date after the check date")
         bulk_placeholder = date_text in bulk_midnight_days and time == "00:00"
+        if bulk_placeholder:
+            if tuple(raw_row) in seen_bulk_exact:
+                uncertain_bulk_repeats += 1
+            seen_bulk_exact.add(tuple(raw_row))
         signature = (date_text, time, keyword, event, street, district)
         duplicate = signature in seen and not bulk_placeholder
         seen.add(signature)
@@ -94,6 +100,7 @@ def main():
         "latest": latest,
         "all_rows": len(raw),
         "category_counts": raw_category,
+        "uncertain_bulk_repeats": uncertain_bulk_repeats,
         "entries": entries,
     }
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)

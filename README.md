@@ -29,9 +29,9 @@ python3 -m http.server 4175 --directory dist
 
 ## Zählregeln
 
-Die Ausgangsliste enthält 610 Aktivitäten, davon 595 mit der Kennzeichnung „Einsatz“ (geprüft am 1. Oktober 2026). Für die Vergleiche werden 24 erkennbare Dienste, Absicherungen oder Übungen ausgelassen und drei Zeilen mit identischem Tag, identischer Zeit, identischem Stichwort, Anlass, Straße und Stadtteil je einmal gezählt. Wiederholte Unwetterzeilen vom 14. Juli 2026 bleiben einzeln, weil die Liste getrennte Einsatzstellen nicht ausschließen kann. An Tagen mit mindestens zehn Mitternachtsangaben und mindestens 80 % Mitternachtsanteil behandelt die Seite diese Uhrzeit als unbekannt. Das betrifft bislang 84 Einträge vom 14. Juli 2026.
+Die Ausgangsliste enthält 610 Aktivitäten, davon 595 mit der Kennzeichnung „Einsatz“ (geprüft am 1. Oktober 2026). Für die Vergleiche werden 24 erkennbare Dienste, Absicherungen oder Übungen ausgelassen und drei Zeilen mit identischem Tag, identischer Zeit, identischem Stichwort, Anlass, Straße und Stadtteil je einmal gezählt. Die 27 wortgleichen Wiederholungen im Unwetterblock vom 14. Juli 2026 bleiben einzeln, weil die Liste getrennte Einsatzstellen nicht ausschließen kann. An Tagen mit mindestens zehn Mitternachtsangaben und mindestens 80 % Mitternachtsanteil behandelt die Seite diese Uhrzeit als unbekannt. Das betrifft bislang 84 Einträge vom 14. Juli 2026.
 
-Die Vermutungen für morgen werden **vor** diesem Tag festgehalten. Frühestens 60 Tage später wird geprüft, ob für den Tag mindestens ein passender Eintrag in der Liste steht. Nachträge können das spätere Ergebnis ändern. Alte Listeneinträge haben kein Veröffentlichungsdatum; deshalb ist ein fairer historischer Rückblick mit dem heutigen Stand allein unmöglich.
+Die Vermutungen für morgen werden **vor** diesem Tag festgehalten. Frühestens 60 Tage später wird einmalig geprüft, ob für den Tag nach dem dann sichtbaren Listenstand mindestens ein passender Eintrag vorliegt. Der Stand und das Ergebnis bleiben gespeichert; spätere Nachträge ändern diese Prüfung nicht. Alte Listeneinträge haben kein Veröffentlichungsdatum; deshalb ist ein fairer historischer Rückblick mit dem heutigen Stand allein unmöglich.
 
 ## Aufbau für die Pflege
 
