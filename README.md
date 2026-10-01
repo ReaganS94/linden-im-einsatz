@@ -2,6 +2,8 @@
 
 Eine eigenständige, öffentliche Entdeckungsseite zur [Aktivitätenliste der Ortsfeuerwehr Linden](https://www.ff-linden.de/veranstaltungsliste/). Nur diese Liste liefert die Einsatzangaben. Die Seite braucht keinen laufenden Server und keine bezahlten Dienste.
 
+**Öffentliche Seite:** [Linden im Einsatz](https://reagans94.github.io/linden-im-einsatz/)
+
 ## Was Besucher sehen
 
 - Monatsverlauf, Tageszeiten, Anlässe und Stadtteile
@@ -14,9 +16,9 @@ Die Seite zeigt keine zusätzlichen persönlichen Angaben. Im Zufallstag erschei
 
 ## Jeden Tag aktuell halten
 
-Der automatische Ablauf prüft die Feuerwehrliste täglich morgens. Neue Einträge werden übernommen und die Seite wird erneut veröffentlicht. Falls eine alte Zeile verschwindet oder geändert wird, stoppt der Ablauf und hält einen Prüfhinweis bereit. So werden Korrekturen nicht stillschweigend als neue oder fehlende Einsätze gezählt. Einmal im Monat sollte jemand kurz prüfen, ob der tägliche Ablauf noch läuft; GitHub kann geplante Abläufe in länger inaktiven öffentlichen Projekten pausieren.
+Der [automatische Ablauf](https://github.com/ReaganS94/linden-im-einsatz/actions/workflows/refresh-and-publish.yml) prüft die Feuerwehrliste täglich morgens. Neue Einträge werden übernommen und die Seite wird erneut veröffentlicht. Falls eine alte Zeile verschwindet oder geändert wird, stoppt der Ablauf und hält einen Prüfhinweis bereit. So werden Korrekturen nicht stillschweigend als neue oder fehlende Einsätze gezählt. Einmal im Monat sollte jemand kurz prüfen, ob der tägliche Ablauf noch läuft; GitHub kann geplante Abläufe in länger inaktiven öffentlichen Projekten pausieren.
 
-Für die erste Veröffentlichung in einem neuen öffentlichen GitHub-Projekt: Unter **Settings → Pages** als Veröffentlichungsquelle **GitHub Actions** wählen. Danach den Ablauf **Einsatzliste prüfen und Seite veröffentlichen** einmal starten. Der gleiche Ablauf läuft anschließend täglich.
+Die Veröffentlichung läuft über GitHub Pages mit **GitHub Actions** als Quelle. Der erste erfolgreiche Lauf fand am 1. Oktober 2026 statt.
 
 Wenn der Ablauf wegen einer geänderten alten Zeile stoppt: Den Prüfhinweis aus dem fehlgeschlagenen Ablauf öffnen und die genannten Zeilen mit der aktuellen Feuerwehrliste vergleichen. Nur wenn die Änderung dort wirklich steht, den Ablauf erneut von Hand starten und dabei **Änderungen alter Zeilen übernehmen** auswählen. Die vorige Fassung bleibt im Projektverlauf erhalten.
 
