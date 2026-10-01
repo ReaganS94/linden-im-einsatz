@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Entdecke, wann, wo und warum die Ortsfeuerwehr Linden ausrückt – mit ehrlichen Zahlen aus ihrer öffentlichen Liste.">
+  <meta name="theme-color" content="#122231">
+  <title>Linden im Einsatz</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='13' fill='%23122231'/%3E%3Cpath d='M32 8c8 12 14 19 14 30a14 14 0 1 1-28 0c0-7 5-16 14-30Z' fill='%23ed5948'/%3E%3Cpath d='M32 29c4 6 6 10 6 14a6 6 0 0 1-12 0c0-4 2-8 6-14Z' fill='%23ffd576'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="#anfang" aria-label="Linden im Einsatz, zum Anfang"><span class="brand-icon" aria-hidden="true">✳</span><span>LINDEN <em>IM EINSATZ</em></span></a>
+      <nav aria-label="Seitenbereiche"><a href="#verlauf">Verlauf</a><a href="#entdecken">Entdecken</a><a href="#ausblick">Ausblick</a><a href="#so-zaehlen-wir">Regeln</a></nav>
+      <button class="mode-button" id="mode-button" type="button" aria-label="Dunkle Ansicht einschalten" title="Ansicht wechseln"><span aria-hidden="true">◐</span><span class="mode-text">Ansicht</span></button>
+    </div>
+  </header>
+  <main id="anfang" class="shell">
+    <section class="opening" aria-labelledby="main-title">
+      <div class="opening-copy">
+        <p class="overline"><span class="signal" aria-hidden="true"></span> ORTSFEUERWEHR LINDEN · HANNOVER</p>
+        <h1 id="main-title">Was passiert, wenn Linden ausrückt?</h1>
+        <p class="lead">Ein Blick in die öffentliche Einsatzliste: Zeiten, Orte und Anlässe. Jede Zahl lässt sich auf die <a href="https://www.ff-linden.de/veranstaltungsliste/" target="_blank" rel="noopener noreferrer">Liste der Feuerwehr</a> zurückführen.</p>
+      </div>
+      <div class="freshness" id="freshness" aria-live="polite">Die Liste wird gelesen …</div>
+    </section>
+
+    <section class="number-strip" aria-label="Zahlen im Überblick">
+      <div class="number-main"><span>Für die Vergleiche</span><strong id="main-count">–</strong><p>veröffentlichte Einsatz-Einträge</p></div>
+      <div class="number-side"><span>In der Liste als „Einsatz“</span><strong id="listed-count">–</strong></div>
+      <div class="number-side"><span>Erkennbare Dienste und Übungen</span><strong id="service-count">–</strong></div>
+      <div class="number-side"><span>Gleiche Alarmangaben gebündelt</span><strong id="repeat-count">–</strong></div>
+    </section>
+
+    <section id="verlauf" class="panel chart-panel" aria-labelledby="timeline-title">
+      <div class="panel-head">
+        <div><p class="overline">01 / WANN</p><h2 id="timeline-title">Ein Jahr, Monat für Monat</h2><p>Wie viele Einträge kamen zusammen – und wie stark prägen einzelne Tage das Bild?</p></div>
+        <div class="panel-tools"><label for="year-choice">Jahr für die Vergleiche</label><select id="year-choice" aria-label="Jahr für die Vergleiche wählen"></select></div>
+      </div>
+      <div class="chart-note"><span class="pill">Hinweis</span><p id="year-note">Die Zahlen werden geladen …</p></div>
+      <div id="month-chart" class="month-chart" role="img" aria-label="Einsatz-Einträge nach Monat"></div>
+      <div class="chart-footer"><label class="toggle"><input id="calm-days" type="checkbox"><span class="toggle-track" aria-hidden="true"></span><span>Tage mit mehr als 10 Einträgen ausblenden</span></label><span id="calm-note"></span></div>
+    </section>
+
+    <section id="blickfang" class="spotlight panel" aria-labelledby="spot-title">
+      <div><p class="overline">AUSSERGEWÖHNLICH</p><h2 id="spot-title">Ein Tag verändert die Skala.</h2><p>Am 14. Juli 2026 verzeichnet die Liste besonders viele Unwetter-Einträge. Die Uhrzeit „00:00“ ist für diese Einträge kein verlässlicher Hinweis auf die tatsächliche Einsatzzeit.</p></div>
+      <div class="spot-number"><strong id="storm-count">–</strong><span>Einträge an diesem Tag</span></div>
+    </section>
+
+    <section id="entdecken" class="explore" aria-labelledby="explore-title">
+      <div class="explore-heading"><p class="overline">02 / ENTDECKEN</p><h2 id="explore-title">Wo und wozu ging es raus?</h2><p>Die Ansichten folgen dem gewählten Jahr. Tippe auf einen Balken, um den Monatsverlauf dafür zu sehen.</p></div>
+      <div class="explore-grid">
+        <article class="panel explore-panel" aria-labelledby="kind-title"><div class="explore-panel-head"><h3 id="kind-title">Anlässe</h3><p>Grob nach den Stichwörtern der Liste geordnet.</p></div><div id="kind-list" class="rank-list"></div></article>
+        <article class="panel explore-panel" aria-labelledby="district-title"><div class="explore-panel-head"><h3 id="district-title">Stadtteile</h3><p>Genau so benannt wie in der Liste.</p></div><div id="district-list" class="rank-list"></div></article>
+      </div>
+      <div class="active-filter" id="active-filter" hidden><span id="active-filter-text"></span><button id="clear-active" type="button">Auswahl aufheben</button></div>
+      <article class="panel time-panel" aria-labelledby="time-title"><div class="explore-panel-head"><div><h3 id="time-title">Zu welcher Uhrzeit?</h3><p>Einträge nach Wochentag und Tageszeit. Dunklere Felder bedeuten mehr Einträge.</p></div><span class="time-count" id="time-count"></span></div><div class="time-scroll"><div id="time-grid" class="time-grid" role="img" aria-label="Einträge nach Wochentag und Tageszeit"></div></div><p class="time-note" id="time-note"></p></article>
+    </section>
+
+    <section class="random-panel panel" aria-labelledby="random-title"><div><p class="overline">03 / ZUFALLSFUND</p><h2 id="random-title">Zieh einen Tag aus der Liste</h2><p>Jeder Klick öffnet einen anderen veröffentlichten Einsatztag. Manchmal ist es einer, manchmal eine ganze Reihe.</p><button id="random-button" class="primary-button" type="button">Überrasch mich</button></div><div id="random-result" class="random-result" aria-live="polite"><span class="random-placeholder">Welchen Tag erwischen wir?</span></div></section>
+
+    <section id="ausblick" class="forecast-panel panel" aria-labelledby="forecast-title"><div class="forecast-copy"><p class="overline">04 / BLICK NACH VORN</p><h2 id="forecast-title">Erst prüfen. Dann schätzen.</h2><p>Sobald die tägliche Prüfung läuft, halten wir vor jedem neuen Tag fest, wie oft es an vergleichbaren Wochentagen früher einen veröffentlichten Einsatz gab. Ob das eine brauchbare Vermutung ist, prüfen wir erst an späteren Tagen.</p><div class="forecast-steps"><span>Vorher festhalten</span><span>60 Tage warten</span><span>Mit der Liste vergleichen</span></div></div><div class="forecast-result"><span class="forecast-eyebrow">Ehrlicher Zwischenstand</span><strong id="forecast-headline">Noch keine Tageszahl</strong><p id="forecast-detail">Die erste Prüfung wird vorbereitet …</p><div class="forecast-progress"><div id="forecast-progress-fill"></div></div><small id="forecast-progress-text"></small></div></section>
+
+    <section id="so-zaehlen-wir" class="method" aria-labelledby="method-title"><p class="overline">KLEINGEDRUCKTES, DAS WICHTIG IST</p><h2 id="method-title">So zählen wir</h2><p>Wir zeigen nur Angaben aus der <a href="https://www.ff-linden.de/veranstaltungsliste/" target="_blank" rel="noopener noreferrer">öffentlichen Liste der Feuerwehr Linden</a>. <span id="method-listed">–</span> Zeilen heißen dort „Einsatz“. Für die Vergleiche bleiben <span id="method-counted">–</span>: klar erkennbare Dienste und Übungen lassen wir weg, und <span id="method-repeats">–</span> weitere Zeilen mit gleichem Tag, gleicher Uhrzeit, gleichem Ort und gleichem Anlass zählen wir je einmal. Bemerkungen können sich dabei unterscheiden.</p><details><summary>Welche Dienste lassen wir weg?</summary><p>Zum Beispiel Brandsicherheitswachen, Wachbesetzungen, Silvesterbereitschaft, die Absicherung von Umzügen, Anwohnerinformation, eine ausdrücklich benannte Übung und Bereitstellung für eine Polizeilage. Diese <span id="method-services">–</span> Zeilen bleiben in der veröffentlichten Liste, erscheinen aber nicht in unseren Vergleichen.</p></details><p>Gleich aussehende Unwetter-Zeilen bleiben einzeln: Die Liste verrät nicht, ob es getrennte Einsatzstellen waren. Auch gleiche Straßen mit unterschiedlicher Uhrzeit fassen wir nicht automatisch zusammen. Hausnummern oder eindeutige Einsatzkennungen fehlen.</p><p>Bei den Tageszeiten lassen wir <span id="method-unknown">–</span> Einträge mit Mitternachtsangabe an Tagen mit sehr vielen solchen Einträgen weg. „00:00“ behandeln wir dort als unbekannte Uhrzeit. Die großen Tage bleiben bei den Monatszahlen sichtbar; mit dem Schalter kannst du sehen, wie die Monate ohne Tage mit mehr als zehn Einträgen aussehen.</p><p>Für den Ausblick zählt nur, ob für einen Tag mindestens ein passender Eintrag erscheint. So verzerrt ein Unwettertag mit vielen Zeilen die Vermutung nicht. Alte Einträge verraten nicht, wann sie veröffentlicht wurden. Deshalb nennen wir rückwärts gerechnete Trefferquoten nicht „geprüft“. Wir speichern neue Vermutungen vor dem jeweiligen Tag und vergleichen sie frühestens 60 Tage später. Nachträge können das Ergebnis auch dann noch ändern.</p><p>Der jüngste Eintrag kann deutlich älter sein als die letzte Prüfung der Liste. Ein fehlender Eintrag bedeutet daher nicht, dass es keinen Einsatz gab. Die Jahre 2024 und 2025 können ebenfalls unvollständig sein.</p></section>
+  </main>
+  <footer class="footer"><span>Linden im Einsatz · eine unabhängige Ansicht der veröffentlichten Liste</span><a href="https://www.ff-linden.de/veranstaltungsliste/" target="_blank" rel="noopener noreferrer">Zur Quelle</a></footer>
+</body>
+</html>

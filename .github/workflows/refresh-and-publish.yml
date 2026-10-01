@@ -1,0 +1,63 @@
+name: Einsatzliste prüfen und Seite veröffentlichen
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '17 6 * * *'
+  workflow_dispatch:
+    inputs:
+      source_correction_approved:
+        description: 'Nur nach Vergleich mit der Feuerwehrliste: Änderungen alter Zeilen übernehmen'
+        type: boolean
+        required: false
+        default: false
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: linden-pages
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Öffentliche Liste prüfen
+        env:
+          APPROVE_SOURCE_CORRECTIONS: ${{ inputs.source_correction_approved }}
+        run: |
+          if [ "$APPROVE_SOURCE_CORRECTIONS" = true ]; then
+            python3 scripts/refresh.py --accept-edits
+          else
+            python3 scripts/refresh.py
+          fi
+      - name: Neuen Stand sichern
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add source/activities.json source/forecasts.json dist/data.json dist/forecast.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Liste geprüft und Zahlen aktualisiert [skip ci]'
+            git push
+          fi
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: dist
+      - uses: actions/deploy-pages@v4
+        id: deployment
+      - name: Prüfhinweis aufbewahren
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pruefung-noetig
+          path: source/review_required.json
+          if-no-files-found: ignore
